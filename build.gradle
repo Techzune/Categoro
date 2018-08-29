@@ -1,0 +1,50 @@
+buildscript {
+    dependencies {
+        classpath group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: '8.8.2'
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'javafx-gradle-plugin'
+
+group 'com.jstremming'
+mainClassName = 'com.jstremming.categoro.MainApplication'
+version '1.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+run {
+    args 'nolog'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.jstremming.categoro.MainApplication'
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+jfx {
+    // minimal requirement for jfxJar-task
+    mainClass = 'com.jstremming.categoro.MainApplication'
+
+    // minimal requirement for jfxNative-task
+    vendor = 'Jordan Stremming'
+}

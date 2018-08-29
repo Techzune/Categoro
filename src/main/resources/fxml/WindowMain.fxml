@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jstremming.categoro.controller.MainController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints percentHeight="-Infinity" vgrow="ALWAYS" />
+        <RowConstraints percentHeight="0.0" />
+    </rowConstraints>
+    <HBox GridPane.rowIndex="1">
+        <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+        </GridPane.margin>
+        <Label fx:id="lbl_imgname" text="IMAGE" />
+    </HBox>
+    <Pane fx:id="pane_main" prefHeight="200.0" prefWidth="200.0">
+        <ImageView fx:id="img_main" fitHeight="${pane_main.height}" fitWidth="${pane_main.width}" preserveRatio="true" />
+    </Pane>
+</GridPane>
