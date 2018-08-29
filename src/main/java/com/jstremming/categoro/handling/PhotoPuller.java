@@ -126,7 +126,7 @@ public class PhotoPuller {
 	 */
 	public File[] getAllUnsortedPhotos() {
 		Console.debug("Collecting unsorted photos");
-		return unsortedFolder.listFiles((dir, name) -> name.toLowerCase().matches(".*?\\.(png|jpg|jpeg)$"));
+		return unsortedFolder.listFiles((dir, name) -> name.toLowerCase().matches(".*(png|jpg|jpeg).*"));
 	}
 
 	/**
