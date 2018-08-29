@@ -21,6 +21,6 @@ Categoro uses project directories to help you sort your images.
 10. Have fun!
 
 ## Issues / Problems
-If you have any issues with the program, please use the Issues page to submit your issues.  
+If you have any issues with the program, please use the [Issues](http://github.com/Techzune/Categoro/issues) page to submit your issues.  
 I may ask you to submit your **categoro.log** file that is automatically placed in the directory of the program.  
 Please attach this to your issue to save time. :)
