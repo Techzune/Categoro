@@ -2,7 +2,8 @@
 A nifty little gadget to help sort your images into their own classification folders!
 
 ## Installing Categoro
-* **Be sure you have at least Java 8 installed!** If not, download it from [Java's website](https://www.java.com/download/).
+* **Be sure you have at least Java 8 installed!**  
+  If not, download it from [Java's website](https://www.java.com/download/).
 * Go to the [Releases](http://github.com/Techzune/Categoro/releases/latest) page and download the latest **.JAR** file.
 * Save the **.JAR** file to where you would like the program to be and run it.
 
