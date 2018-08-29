@@ -1,5 +1,5 @@
 # Categoro
-Helps you sort your images into classification folders.
+A nifty little gadget to help sort your images into their own classification folders!
 
 ## Installing Categoro
 * **Be sure you have at least Java 8 installed!** If not, download it from [Java's website](https://www.java.com/download/).
