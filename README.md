@@ -10,14 +10,14 @@ Helps you sort your images into classification folders.
 Categoro uses project directories to help you sort your images.
 1. **Create a directory** for your images to be sorted in.
 2. Open Categoro and **select that directory** for your project.
-3. **Define a project name and classes** you wish to have. With each class, you must define a key to press to pick that class.
+3. **Define a project name and classes** you wish to have. With each class, you must define a key to press to pick that class.  
    NOTE: You cannot use "unsorted" as a directory name. This will hold all your unsorted photos.
 4. Click **Start Sorting**.
 5. There will be no images to sort, so you can **close Categoro**.
 6. Go to that directory and **add you photos to sort** into the **unsorted** directory.
 7. Open Categoro, **select that directory again**, and it should load your previous configuration.
 8. Click **Start Sorting**.
-9. Using the keys you defined, **press the correct classification** for the image showing.
+9. Using the keys you defined, **press the correct classification** for the image showing.  
    Use X to skip the current image or Z to return to the previous image.
 10. Have fun!
 
