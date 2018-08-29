@@ -140,6 +140,7 @@ public class PhotoPuller {
 
 		Console.debug("Validating unsorted path");
 		unsortedFolder = new File(projectPath, "unsorted");
+		Console.debug("Unsorted folder path:", unsortedFolder.getAbsolutePath());
 		validateDirectory(unsortedFolder);
 
 		Console.debug("Validating file folders");
