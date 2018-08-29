@@ -1,7 +1,7 @@
 # Categoro
 Helps you sort your images into classification folders.
 
-## Installation
+## Installing Categoro
 * **Be sure you have at least Java 8 installed!** If not, download it from [Java's website](https://www.java.com/download/).
 * Go to the [Releases](http://github.com/Techzune/Categoro/releases/latest) page and download the latest **.JAR** file.
 * Save the **.JAR** file to where you would like the program to be and run it.
@@ -24,3 +24,6 @@ Categoro uses project directories to help you sort your images.
 If you have any issues with the program, please use the [Issues](http://github.com/Techzune/Categoro/issues) page to submit your issues.  
 I may ask you to submit your **categoro.log** file that is automatically placed in the directory of the program.  
 Please attach this to your issue to save time. :)
+
+## Why is it named "Categoro?"
+Really, no idea. I just came up with it stuck with it.
