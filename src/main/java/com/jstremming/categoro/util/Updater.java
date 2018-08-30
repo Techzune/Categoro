@@ -21,7 +21,7 @@ public class Updater {
 
 	public static String getLatestVersion() {
 		try (final BufferedReader br = new BufferedReader(new InputStreamReader(new URL(
-				"\\TODO").openStream()))) {
+				"https://techzune.github.io/Categoro/docs/ver.txt").openStream()))) {
 			return br.readLine();
 		} catch (final IOException e) {
 			Console.warn("An error occurred while checking for updates...");

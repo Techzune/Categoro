@@ -15,7 +15,7 @@ apply plugin: 'javafx-gradle-plugin'
 
 group 'com.jstremming'
 mainClassName = 'com.jstremming.categoro.MainApplication'
-version '1.0'
+version '1.1'
 
 sourceCompatibility = 1.8
 

@@ -1,26 +1,27 @@
 package com.jstremming.categoro.controller;
 
 import com.jstremming.categoro.handling.ProjectConfig;
+import com.jstremming.categoro.util.Console;
 import com.jstremming.categoro.util.MessageBox;
+import com.jstremming.categoro.util.Updater;
 import com.jstremming.categoro.util.XListCell;
+import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.File;
 import java.net.URL;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
 
 public class ProjectController extends BaseController {
 
@@ -45,6 +46,27 @@ public class ProjectController extends BaseController {
 	public void initialize(final URL location, final ResourceBundle resources) {
 		super.initialize(location, resources);
 
+		// check for updates
+		if (Updater.isNewVersion()) {
+			// ask the user to download
+			final Optional<ButtonType> result = MessageBox.generateYesNo(Alert.AlertType.INFORMATION,
+					"Categoro has an update available!\n"
+							+ "Do you want to download it?").showAndWait();
+
+			// if the user responds yes
+			if (result.isPresent() && result.get() == ButtonType.YES) {
+				// open a browser to the latest release then exit
+				try {
+					Desktop.getDesktop().browse(new URL("http://github.com/Techzune/Categoro/releases/latest").toURI());
+					Platform.exit();
+				} catch (final Exception e) {
+					// oh noes
+					Console.severe("An error occurred opening the browser.");
+					e.printStackTrace();
+				}
+			}
+		}
+
 		// make cells removable
 		list_classes.setCellFactory(param -> new XListCell());
 		list_classes.getItems().addListener((ListChangeListener<String>) change -> {
@@ -56,10 +78,8 @@ public class ProjectController extends BaseController {
 						categories.remove(item.split(" \u21a6 ")[0]);
 					}
 				}
-
 			}
 		});
-
 	}
 
 	/**
