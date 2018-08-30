@@ -35,13 +35,13 @@ public class Updater {
 		final String[] ver1 = str1.split("\\.");
 		final String[] ver2 = str2.split("\\.");
 
+		// move to next num while versions are equal to each other
 		int i = 0;
-		// set index to first non-equal ordinal or length of shortest VERSION string
 		while (i < ver1.length && i < ver2.length && ver1[i].equals(ver2[i])) {
 			i++;
 		}
 
-		// compare first non-equal ordinal number
+		// return the comparison of the next number
 		if (i < ver1.length && i < ver2.length) {
 			final int diff = Integer.valueOf(ver1[i]).compareTo(Integer.valueOf(ver2[i]));
 			return Integer.signum(diff);
