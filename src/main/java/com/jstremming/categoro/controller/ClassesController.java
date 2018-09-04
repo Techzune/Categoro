@@ -1,8 +1,10 @@
 package com.jstremming.categoro.controller;
 
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -26,6 +28,14 @@ public class ClassesController extends BaseController {
 	 */
 	public Stage getStage() {
 		return (Stage) list_classes.getScene().getWindow();
+	}
+
+	/**
+	 * Refer to:
+	 * {@link ListView#setOnMouseClicked}
+	 */
+	public void setOnMouseClicked(final EventHandler<? super MouseEvent> eventHandler) {
+		list_classes.setOnMouseClicked(eventHandler);
 	}
 
 	public void setClasses(final Map<String, String> classes) {

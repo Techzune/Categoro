@@ -68,32 +68,21 @@ public class MainController extends BaseController {
 		// prepare key-press event
 		lbl_imgname.getScene().setOnKeyPressed(e -> {
 			final KeyCode key = e.getCode();
-
-			// switch based on the key pressed
-			switch (key) {
-				case Z:
-					// undo key
-					photoPuller.commitUndo();
-					loadImage();
-					break;
-				case X:
-					// skip key
-					photoPuller.commitSkip();
-					loadImage();
-					break;
-			}
-
-			// check if the key is a category
-			if (categories.containsKey(key.toString().toUpperCase())) {
-				// commit a move
-				photoPuller.commitMove(categories.get(key.toString().toUpperCase()));
-				loadImage();
-			}
+			keyPress(key.toString());
 		});
 
 		// load classes window
 		final ClassesController classesController = (new ClassesController()).show();
 		classesController.setClasses(categories);
+		classesController.setOnMouseClicked((event) -> {
+			// get the selected item
+			final String selected = classesController.list_classes.getSelectionModel().getSelectedItem();
+			if (selected == null || selected.isEmpty()) return;
+			// clear the selection
+			classesController.list_classes.getSelectionModel().clearSelection();
+			// pass the first character of the selected item (should be a letter)
+			keyPress(selected.split(" ")[0]);
+		});
 
 		// position classes window
 		final Stage stage = getStage();
@@ -125,6 +114,32 @@ public class MainController extends BaseController {
 			lbl_imgname.setText("NO MORE IMAGES REMAIN");
 			// notify the user
 			MessageBox.generate(Alert.AlertType.INFORMATION, "No more images to sort!").show();
+		}
+	}
+
+	/**
+	 * Handle a category/key press from the user
+	 */
+	public void keyPress(final String key) {
+		// switch based on the key pressed
+		switch (key) {
+			case "Z":
+				// undo key
+				photoPuller.commitUndo();
+				loadImage();
+				break;
+			case "X":
+				// skip key
+				photoPuller.commitSkip();
+				loadImage();
+				break;
+		}
+
+		// check if the key is a category
+		if (categories.containsKey(key.toUpperCase())) {
+			// commit a move
+			photoPuller.commitMove(categories.get(key.toUpperCase()));
+			loadImage();
 		}
 	}
 
