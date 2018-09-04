@@ -68,6 +68,9 @@ public class PhotoPuller {
 	 * Reverts the most recent action
 	 */
 	public void commitUndo() {
+		// ignore commit if empty
+		if (actions.empty()) return;
+
 		final Action last = actions.pop();
 		final File lastFile = last.undo();
 		unsortedFiles.push(lastFile);
@@ -88,6 +91,9 @@ public class PhotoPuller {
 	 * @param target the name of the target directory
 	 */
 	public void move(final File file, final String target) {
+		// ignore blank
+		if (file == null) return;
+
 		// make sure class exists
 		if (!classes.containsKey(target)) {
 			Console.warn("Invalid class name", target);
