@@ -15,7 +15,7 @@ public class CategoriesController extends BaseController {
 	@FXML ListView<String> list_cats;
 
 	public CategoriesController() {
-		super("/fxml/WindowCategories.fxml", "Classes");
+		super("/fxml/WindowCategories.fxml", "Categories");
 	}
 
 	@Override
