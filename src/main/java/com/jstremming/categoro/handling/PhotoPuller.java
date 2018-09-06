@@ -13,12 +13,19 @@ import java.util.Stack;
 
 public class PhotoPuller {
 
+	/** The File of the project's root path */
 	private final File projectPath;
 
+	/** The File of the unsorted folder */
 	private File unsortedFolder;
+
+	/** A map of the categories, Name -> File */
 	private final HashMap<String, File> classes = new HashMap<>();
 
+	/** Stack of Files to be sorted */
 	private final Stack<File> unsortedFiles = new Stack<>();
+
+	/** Stack of actions completed so far */
 	private final Stack<Action> actions = new Stack<>();
 
 	/**
