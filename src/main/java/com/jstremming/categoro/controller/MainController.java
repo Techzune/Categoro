@@ -71,24 +71,24 @@ public class MainController extends BaseController {
 			keyPress(key.toString());
 		});
 
-		// load classes window
-		final ClassesController classesController = (new ClassesController()).show();
-		classesController.setClasses(categories);
-		classesController.setOnMouseClicked((event) -> {
+		// load categories window
+		final CategoriesController catsController = (new CategoriesController()).show();
+		catsController.setCategories(categories);
+		catsController.setOnMouseClicked((event) -> {
 			// get the selected item
-			final String selected = classesController.list_classes.getSelectionModel().getSelectedItem();
+			final String selected = catsController.list_cats.getSelectionModel().getSelectedItem();
 			if (selected == null || selected.isEmpty()) return;
 			// clear the selection
-			classesController.list_classes.getSelectionModel().clearSelection();
+			catsController.list_cats.getSelectionModel().clearSelection();
 			// pass the first character of the selected item (should be a letter)
 			keyPress(selected.split(" ")[0]);
 		});
 
-		// position classes window
+		// position categories window
 		final Stage stage = getStage();
-		final Stage classesStage = classesController.getStage();
-		classesStage.setX(stage.getX() + stage.getWidth() + 5);
-		classesStage.setY(stage.getY());
+		final Stage catsStage = catsController.getStage();
+		catsStage.setX(stage.getX() + stage.getWidth() + 5);
+		catsStage.setY(stage.getY());
 
 		// load the first image
 		loadImage();

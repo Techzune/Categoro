@@ -27,10 +27,10 @@ public class ProjectController extends BaseController {
 
 	@FXML private TextField txt_projectDir;
 	@FXML private TextField txt_projectName;
-	@FXML private TextField txt_addClass;
-	@FXML private TextField txt_addClassKey;
+	@FXML private TextField txt_addCat;
+	@FXML private TextField txt_addCatKey;
 	@FXML private VBox vbox_project;
-	@FXML private ListView<String> list_classes;
+	@FXML private ListView<String> list_cats;
 	@FXML private Button btn_sort;
 
 	private File projectPath;
@@ -68,8 +68,8 @@ public class ProjectController extends BaseController {
 		}
 
 		// make cells removable
-		list_classes.setCellFactory(param -> new XListCell());
-		list_classes.getItems().addListener((ListChangeListener<String>) change -> {
+		list_cats.setCellFactory(param -> new XListCell());
+		list_cats.getItems().addListener((ListChangeListener<String>) change -> {
 			while (change.next()) {
 				if (change.wasRemoved()) {
 					final List<? extends String> list = change.getRemoved();
@@ -104,15 +104,15 @@ public class ProjectController extends BaseController {
 
 		// populate boxes
 		txt_projectName.setText(loadedConfig.getProjectName());
-		final ObservableList<String> items = list_classes.getItems();
+		final ObservableList<String> items = list_cats.getItems();
 		items.clear();
 		for (final Map.Entry<String, String> entry : categories.entrySet()) {
 			items.add(entry.getKey() + " \u21a6 " + entry.getValue());
 		}
 
 		// prevent multiple keys
-		txt_addClassKey.textProperty().addListener((o, oldV, newV) -> {
-			if (newV.length() > 1 && oldV.length() <= 1) txt_addClassKey.setText(oldV);
+		txt_addCatKey.textProperty().addListener((o, oldV, newV) -> {
+			if (newV.length() > 1 && oldV.length() <= 1) txt_addCatKey.setText(oldV);
 		});
 
 		// enable the project options
@@ -121,31 +121,31 @@ public class ProjectController extends BaseController {
 	}
 
 	/**
-	 * Triggered when "add class" is clicked for adding a classification
+	 * Triggered when "add category" is clicked for adding a category
 	 */
 	@FXML
-	public void btnAddClass() {
+	public void btnAddCat() {
 		// get the text and trim any whitespace
-		final String newClass = txt_addClass.getText().trim();
-		final String newClassKey = txt_addClassKey.getText().trim().toUpperCase();
+		final String newCat = txt_addCat.getText().trim();
+		final String newCatKey = txt_addCatKey.getText().trim().toUpperCase();
 
 		//region Input Validation
 
 		// ignore blanks
-		if (newClass.isEmpty()) return;
-		if (newClassKey.isEmpty()) return;
+		if (newCat.isEmpty()) return;
+		if (newCatKey.isEmpty()) return;
 
 		// reject "unsorted"
-		if (newClass.equalsIgnoreCase("unsorted")) {
+		if (newCat.equalsIgnoreCase("unsorted")) {
 			final Alert alert = MessageBox.generate(AlertType.ERROR,
-					"INVALID CLASS",
+					"INVALID CATEGORY",
 					"\"unsorted\" is a reserved folder for unsorted pictures to be stored in!");
 			alert.showAndWait();
 			return;
 		}
 
 		// reject invalid folder name characters
-		if (newClass.matches(".*[^\\w][,\\\\/:*?\"<>|]*.*")) {
+		if (newCat.matches(".*[^\\w][,\\\\/:*?\"<>|]*.*")) {
 			final Alert alert = MessageBox.generate(AlertType.ERROR,
 					"INVALID CHARACTER",
 					"Sorry, you can't use: , \\ / : * ? \" < > |");
@@ -154,14 +154,14 @@ public class ProjectController extends BaseController {
 		}
 
 		// reject duplicates
-		if (categories.containsValue(newClass)) {
+		if (categories.containsValue(newCat)) {
 			final Alert alert = MessageBox.generate(AlertType.ERROR,
-					"DUPLICATE CLASS",
-					"That class already exists!");
+					"DUPLICATE CATEGORY",
+					"That category already exists!");
 			alert.showAndWait();
 			return;
 		}
-		if (categories.containsKey(newClassKey)) {
+		if (categories.containsKey(newCatKey)) {
 			final Alert alert = MessageBox.generate(AlertType.ERROR,
 					"DUPLICATE KEY",
 					"That key is already being used!");
@@ -170,16 +170,16 @@ public class ProjectController extends BaseController {
 		}
 
 		// reject multiple key characters
-		if (newClassKey.length() > 1) {
+		if (newCatKey.length() > 1) {
 			final Alert alert = MessageBox.generate(AlertType.ERROR,
 					"MULTIPLE KEYS",
-					"You can only use ONE key per class!");
+					"You can only use ONE key per category!");
 			alert.showAndWait();
 			return;
 		}
 
 		// reject reserved keys
-		if (newClassKey.equals("Z") || newClass.equals("X")) {
+		if (newCatKey.equals("Z") || newCat.equals("X")) {
 			final Alert alert = MessageBox.generate(AlertType.ERROR,
 					"RESERVED KEYS",
 					"You cannot use Z or X!");
@@ -188,9 +188,9 @@ public class ProjectController extends BaseController {
 		}
 		//endregion
 
-		// add the new class
-		categories.put(newClassKey, newClass);
-		list_classes.getItems().add(newClassKey + " \u21a6 " + newClass);
+		// add the new category
+		categories.put(newCatKey, newCat);
+		list_cats.getItems().add(newCatKey + " \u21a6 " + newCat);
 	}
 
 	/**

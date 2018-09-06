@@ -20,7 +20,7 @@ public class PhotoPuller {
 	private File unsortedFolder;
 
 	/** A map of the categories, Name -> File */
-	private final HashMap<String, File> classes = new HashMap<>();
+	private final HashMap<String, File> categories = new HashMap<>();
 
 	/** Stack of Files to be sorted */
 	private final Stack<File> unsortedFiles = new Stack<>();
@@ -37,9 +37,9 @@ public class PhotoPuller {
 		Console.debug("Pulling from: ", projectPath.getName());
 		this.projectPath = projectPath;
 
-		// pull all classes
-		for (final String cla : config.getCategories().values()) {
-			addClass(cla);
+		// pull all categories
+		for (final String cat : config.getCategories().values()) {
+			addCategory(cat);
 		}
 
 		// validate all directories
@@ -101,15 +101,15 @@ public class PhotoPuller {
 		// ignore blank
 		if (file == null) return;
 
-		// make sure class exists
-		if (!classes.containsKey(target)) {
-			Console.warn("Invalid class name", target);
+		// make sure category exists
+		if (!categories.containsKey(target)) {
+			Console.warn("Invalid category name", target);
 			commitSkip();
 			return;
 		}
 
 		Console.debug("Moving", file.getName(), "to", target);
-		final ActionMove move = new ActionMove(file, new File(classes.get(target), file.getName()));
+		final ActionMove move = new ActionMove(file, new File(categories.get(target), file.getName()));
 		move.commit();
 		actions.push(move);
 	}
@@ -126,11 +126,11 @@ public class PhotoPuller {
 	}
 
 	/**
-	 * Adds a class to the project
+	 * Adds a category to the project
 	 */
-	public void addClass(final String className) {
-		Console.debug("Adding class:", className);
-		classes.put(className, new File(projectPath, className));
+	public void addCategory(final String catName) {
+		Console.debug("Adding category:", catName);
+		categories.put(catName, new File(projectPath, catName));
 	}
 
 	/**
@@ -157,7 +157,7 @@ public class PhotoPuller {
 		validateDirectory(unsortedFolder);
 
 		Console.debug("Validating file folders");
-		for (final File folder : classes.values()) validateDirectory(folder);
+		for (final File folder : categories.values()) validateDirectory(folder);
 	}
 
 	/**

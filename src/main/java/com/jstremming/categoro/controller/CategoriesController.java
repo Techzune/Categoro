@@ -11,11 +11,11 @@ import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class ClassesController extends BaseController {
-	@FXML ListView<String> list_classes;
+public class CategoriesController extends BaseController {
+	@FXML ListView<String> list_cats;
 
-	public ClassesController() {
-		super("/fxml/WindowClasses.fxml", "Classes");
+	public CategoriesController() {
+		super("/fxml/WindowCategories.fxml", "Classes");
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public class ClassesController extends BaseController {
 	 * Returns the stage of the window
 	 */
 	public Stage getStage() {
-		return (Stage) list_classes.getScene().getWindow();
+		return (Stage) list_cats.getScene().getWindow();
 	}
 
 	/**
@@ -35,16 +35,16 @@ public class ClassesController extends BaseController {
 	 * {@link ListView#setOnMouseClicked}
 	 */
 	public void setOnMouseClicked(final EventHandler<? super MouseEvent> eventHandler) {
-		list_classes.setOnMouseClicked(eventHandler);
+		list_cats.setOnMouseClicked(eventHandler);
 	}
 
-	public void setClasses(final Map<String, String> classes) {
-		final ObservableList<String> list = list_classes.getItems();
+	public void setCategories(final Map<String, String> classes) {
+		final ObservableList<String> list = list_cats.getItems();
 		list.clear();
 		list.add("X \u21a6 SKIP");
 		list.add("Z \u21a6 UNDO");
-		for (final Map.Entry<String, String> cla : classes.entrySet()) {
-			list.add(cla.getKey() + " \u21a6 " + cla.getValue());
+		for (final Map.Entry<String, String> cat : classes.entrySet()) {
+			list.add(cat.getKey() + " \u21a6 " + cat.getValue());
 		}
 	}
 }
