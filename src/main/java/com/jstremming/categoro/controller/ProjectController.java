@@ -191,6 +191,13 @@ public class ProjectController extends BaseController {
 		// add the new category
 		categories.put(newCatKey, newCat);
 		list_cats.getItems().add(newCatKey + " \u21a6 " + newCat);
+
+		// clear the boxes
+		txt_addCat.clear();
+		txt_addCatKey.clear();
+
+		// select add category box
+		txt_addCat.requestFocus();
 	}
 
 	/**
