@@ -9,19 +9,27 @@ public class Updater {
 	private static final String VERSION = "1.2";
 
 	public static boolean isNewVersion() {
-		// get the latest VERSION from web
-		final String latest = getLatestVersion();
+		try {
+			// get the latest VERSION from web
+			final String latest = getLatestVersion();
 
-		// return false if the check failed
-		if (latest.isEmpty()) return false;
+			// return false if the check failed
+			if (latest.isEmpty())
+				return false;
 
-		// return true, if there is a new version
-		return versionCompare(VERSION, latest) == -1;
+			// return true, if there is a new version
+			return versionCompare(VERSION, latest) == -1;
+
+		} catch (final Exception e) {
+			Console.warn("An error occurred while checking for updates...");
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	public static String getLatestVersion() {
 		try (final BufferedReader br = new BufferedReader(new InputStreamReader(new URL(
-				"https://techzune.github.io/Categoro/ver.txt").openStream()))) {
+				"http://jordanstremming.com/Categoro/ver.txt").openStream()))) {
 			return br.readLine();
 		} catch (final IOException e) {
 			Console.warn("An error occurred while checking for updates...");
