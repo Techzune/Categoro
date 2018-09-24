@@ -269,12 +269,10 @@ public class ProjectController extends BaseController {
 		final ProjectExporter exporter = new ProjectExporter(projectPath, loadedConfig);
 		final boolean success = exporter.exportToExcel();
 
-		if (wait.isShowing()) {
-			wait.close();
-		}
+		wait.getDialogPane().getScene().getWindow().hide();
 
 		if (success) {
-			MessageBox.generate(AlertType.CONFIRMATION, "File created in project directory!").show();
+			MessageBox.generate(AlertType.INFORMATION, "File created in project directory!").show();
 		} else {
 			MessageBox.generate(AlertType.WARNING, "Something went wrong with file generation. Please check the log for errors.").show();
 		}
