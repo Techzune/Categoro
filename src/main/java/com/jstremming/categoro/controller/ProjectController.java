@@ -1,6 +1,7 @@
 package com.jstremming.categoro.controller;
 
 import com.jstremming.categoro.handling.ProjectConfig;
+import com.jstremming.categoro.handling.ProjectExporter;
 import com.jstremming.categoro.util.Console;
 import com.jstremming.categoro.util.MessageBox;
 import com.jstremming.categoro.util.Updater;
@@ -80,6 +81,23 @@ public class ProjectController extends BaseController {
 				}
 			}
 		});
+	}
+
+	/**
+	 * Saves the values to the project's config
+	 */
+	public void saveConfig() {
+		// reject non-existent config
+		if (loadedConfig == null) return;
+
+		// store the project name
+		loadedConfig.setProjectName(txt_projectName.getText());
+
+		// store the project categories
+		loadedConfig.setCategories(categories);
+
+		// save the configuration to file
+		loadedConfig.save();
 	}
 
 	/**
@@ -205,14 +223,12 @@ public class ProjectController extends BaseController {
 	 */
 	@FXML
 	public void btnSort() {
-		// store the project name
-		loadedConfig.setProjectName(txt_projectName.getText());
+		// reject non-existent config
+		if (loadedConfig == null || projectPath == null) {
+			MessageBox.generate(AlertType.WARNING, "You must select a project first!").show();
+		}
 
-		// store the project categories
-		loadedConfig.setCategories(categories);
-
-		// save the configuration to file
-		loadedConfig.save();
+		saveConfig();
 
 		// close project window (self)
 		final Stage stage = (Stage) btn_sort.getScene().getWindow();
@@ -221,5 +237,44 @@ public class ProjectController extends BaseController {
 		// open main window and load project
 		final MainController controller = new MainController().show();
 		controller.loadProject(projectPath, loadedConfig);
+	}
+
+	/**
+	 * Triggered when "Export to Excel" is clicked
+	 */
+	@FXML
+	public void exportToExcel() {
+		// reject non-loaded config
+		if (loadedConfig == null || projectPath == null) {
+			MessageBox.generate(AlertType.WARNING, "You must select a project first!").show();
+		}
+
+		// save config
+		saveConfig();
+
+		// validate project name
+		if (loadedConfig.getProjectName().isEmpty()) {
+			MessageBox.generate(AlertType.WARNING, "You must specify a project name before exporting!").show();
+		}
+
+		// notify to wait
+		final Alert wait = new Alert(AlertType.INFORMATION, "Generating file...");
+		wait.setTitle("Please wait...");
+		wait.setHeaderText("Just a second");
+		wait.getButtonTypes().clear();
+		wait.show();
+
+		final ProjectExporter exporter = new ProjectExporter(projectPath, loadedConfig);
+		final boolean success = exporter.exportToExcel();
+
+		if (wait.isShowing()) {
+			wait.close();
+		}
+
+		if (success) {
+			MessageBox.generate(AlertType.CONFIRMATION, "File created in project directory!").show();
+		} else {
+			MessageBox.generate(AlertType.WARNING, "Something went wrong with file generation. Please check the log for errors.").show();
+		}
 	}
 }
