@@ -247,6 +247,7 @@ public class ProjectController extends BaseController {
 		// reject non-loaded config
 		if (loadedConfig == null || projectPath == null) {
 			MessageBox.generate(AlertType.WARNING, "You must select a project first!").show();
+			return;
 		}
 
 		// save config
@@ -255,6 +256,7 @@ public class ProjectController extends BaseController {
 		// validate project name
 		if (loadedConfig.getProjectName().isEmpty()) {
 			MessageBox.generate(AlertType.WARNING, "You must specify a project name before exporting!").show();
+			return;
 		}
 
 		// notify to wait
