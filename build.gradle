@@ -30,6 +30,7 @@ dependencies {
 }
 
 run {
+    dependsOn jar
     args 'nolog'
 }
 
